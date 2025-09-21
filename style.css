@@ -1,0 +1,162 @@
+/* ========== Reset & Base ========== */
+body, h1, h2, h3, p, ul {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  color: #222;
+  line-height: 1.6;
+  background-color: #fff;
+}
+
+/* ========== Header / Hero Banner ========== */
+header {
+  height: 400px;
+  background: url("images/chicken2.webp") no-repeat center center;
+  background-size: cover;
+  position: relative;
+}
+
+.hero-overlay {
+  background: rgba(0,0,0,0.6);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+.logo {
+  width: 120px;
+  margin-bottom: 15px;
+}
+
+.hero-title {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+.hero-subtitle {
+  font-size: 1.2rem;
+}
+
+/* ========== Navigation ========== */
+nav {
+  background: rgb(255,204,0);
+  padding: 12px 0;
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+nav a {
+  color: #333;
+  text-decoration: none;
+  margin: 0 20px;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+nav a:hover {
+  color: #d9534f;
+}
+
+/* ========== Sections (About etc.) ========== */
+section {
+  padding: 60px 20px;
+}
+
+.about-section {
+  background-color: #fffbe6;
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* ========== Footer ========== */
+footer {
+  background: linear-gradient(to top, rgba(0,0,0,0.5), rgba(0,0,0,0.2)),
+              url("images/Los Pollos Hermano shop.jpg") no-repeat center center;
+  background-size: cover;
+  color: #fff;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.footer-content p {
+  margin: 5px 0;
+}
+
+/* ========== Menu Page (Accordion) ========== */
+.menu-page {
+  background-color: #fffbe6;
+  padding: 20px;
+}
+
+/* 店内菜单照片 */
+.menu-photo {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.menu-img {
+  max-width: 90%;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+/* Accordion 样式 */
+.menu-section {
+  max-width: 800px;
+  margin: 20px auto;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  overflow: hidden;
+  background: #fff;
+}
+
+/* 折叠标题 */
+.menu-header {
+  background: #f8d24a;
+  color: #333;
+  padding: 15px;
+  cursor: pointer;
+  font-weight: bold;
+  border-bottom: 1px solid #ddd;
+  transition: background 0.3s ease;
+}
+
+.menu-header:hover {
+  background: #f4c842;
+}
+
+/* 折叠内容 */
+.menu-content {
+  display: none;
+  padding: 20px;
+  text-align: left;
+}
+
+.menu-content ul {
+  list-style: none;
+  padding: 0;
+}
+
+.menu-content li {
+  margin: 5px 0;
+  font-size: 1rem;
+}
+.menu-img {
+  display: block;          /* 让图片单独占一行 */
+  margin: 20px auto;       /* 上下间距20px，左右自动居中 */
+  max-width: 80%;          /* 最大宽度占页面80% */
+  height: auto;            /* 高度自动按比例缩放 */
+  border-radius: 8px;      /* 圆角边框 */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* 投影效果 */
+}
