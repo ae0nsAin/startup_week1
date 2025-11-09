@@ -1,0 +1,24 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #f8fafc;
+    text-align: center;
+}
+header, footer {
+    background: #e0f7fa;
+    padding: 10px;
+}
+nav a {
+    margin: 0 8px;
+    text-decoration: none;
+    color: #00796b;
+}
+input[type=submit] {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+input[type=submit]:hover {
+    background-color: #388e3c;
+}
