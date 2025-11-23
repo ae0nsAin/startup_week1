@@ -1,0 +1,590 @@
+// ========================================
+// 页面样式文件 - 展示更多Sass特性和嵌套
+// ========================================
+
+// 首页特定样式
+.home-page {
+    .hero {
+        position: relative;
+        overflow: hidden;
+        
+        &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><defs><radialGradient id="a" cx="50%" cy="50%"><stop offset="0%" stop-color="%23ffffff" stop-opacity="0.1"/><stop offset="100%" stop-color="%23ffffff" stop-opacity="0"/></radialGradient></defs><circle cx="200" cy="300" r="100" fill="url(%23a)"/><circle cx="800" cy="200" r="150" fill="url(%23a)"/><circle cx="600" cy="700" r="120" fill="url(%23a)"/></svg>') repeat;
+            animation: float 20s ease-in-out infinite;
+            pointer-events: none;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            
+            .hero-title {
+                @include fade-in(1s, 0.2s);
+            }
+            
+            .hero-subtitle {
+                @include fade-in(1s, 0.5s);
+            }
+            
+            .cta-button {
+                @include fade-in(1s, 0.8s);
+            }
+        }
+    }
+    
+    .intro-section {
+        padding: $spacing-xl * 3 0;
+        background: $white;
+        
+        .intro-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            
+            .intro-text {
+                font-size: 1.1rem;
+                line-height: 1.8;
+                color: $text-light;
+                margin-bottom: $spacing-lg;
+            }
+            
+            .stats-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: $spacing-lg;
+                margin-top: $spacing-xl;
+                
+                .stat-item {
+                    text-align: center;
+                    padding: $spacing-md;
+                    
+                    .stat-number {
+                        font-family: $font-primary;
+                        font-size: 3rem;
+                        font-weight: 700;
+                        color: $primary-color;
+                        display: block;
+                        margin-bottom: $spacing-xs;
+                    }
+                    
+                    .stat-label {
+                        color: $text-light;
+                        font-weight: 500;
+                        text-transform: uppercase;
+                        letter-spacing: 1px;
+                        font-size: 0.9rem;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// 博客页面特定样式
+.blog-page {
+    .blog-header {
+        background: linear-gradient(135deg, $primary-color 0%, $secondary-color 100%);
+        color: $white;
+        padding: $spacing-xl * 2 0;
+        text-align: center;
+        
+        .blog-title {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            margin-bottom: $spacing-sm;
+            @include text-shadow;
+        }
+        
+        .blog-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+    }
+    
+    .blog-content {
+        padding: $spacing-xl * 2 0;
+        
+        .blog-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: $spacing-xl;
+            
+            .blog-main {
+                .blog-post {
+                    @include card-style($spacing-lg, 12px);
+                    margin-bottom: $spacing-xl;
+                    
+                    .post-header {
+                        margin-bottom: $spacing-md;
+                        
+                        .post-title {
+                            font-size: 2rem;
+                            color: $primary-color;
+                            margin-bottom: $spacing-sm;
+                            
+                            a {
+                                color: inherit;
+                                text-decoration: none;
+                                transition: color 0.3s ease;
+                                
+                                &:hover {
+                                    color: $secondary-color;
+                                }
+                            }
+                        }
+                        
+                        .post-meta {
+                            display: flex;
+                            align-items: center;
+                            gap: $spacing-md;
+                            color: $text-light;
+                            font-size: 0.9rem;
+                            
+                            .post-date {
+                                @include flex-center(row);
+                                
+                                &::before {
+                                    content: '📅';
+                                    margin-right: $spacing-xs;
+                                }
+                            }
+                            
+                            .post-author {
+                                @include flex-center(row);
+                                
+                                &::before {
+                                    content: '✍️';
+                                    margin-right: $spacing-xs;
+                                }
+                            }
+                            
+                            .post-category {
+                                @include flex-center(row);
+                                
+                                &::before {
+                                    content: '🏷️';
+                                    margin-right: $spacing-xs;
+                                }
+                            }
+                        }
+                    }
+                    
+                    .post-excerpt {
+                        color: $text-light;
+                        font-size: 1.1rem;
+                        line-height: 1.7;
+                        margin-bottom: $spacing-md;
+                    }
+                    
+                    .post-read-more {
+                        @include button-style($primary-color, $white);
+                        text-decoration: none;
+                        display: inline-block;
+                        
+                        &:hover {
+                            transform: translateY(-2px);
+                        }
+                    }
+                }
+            }
+            
+            .blog-sidebar {
+                .sidebar-widget {
+                    @include card-style($spacing-md, 8px);
+                    margin-bottom: $spacing-lg;
+                    
+                    .widget-title {
+                        font-size: 1.2rem;
+                        color: $primary-color;
+                        border-bottom: 2px solid $accent-color;
+                        padding-bottom: $spacing-xs;
+                        margin-bottom: $spacing-md;
+                    }
+                    
+                    .recent-posts {
+                        .recent-post {
+                            display: flex;
+                            margin-bottom: $spacing-sm;
+                            padding-bottom: $spacing-sm;
+                            border-bottom: 1px solid $light-gray;
+                            
+                            &:last-child {
+                                border-bottom: none;
+                                margin-bottom: 0;
+                                padding-bottom: 0;
+                            }
+                            
+                            .post-thumbnail {
+                                width: 60px;
+                                height: 60px;
+                                background: $light-gray;
+                                border-radius: 4px;
+                                margin-right: $spacing-sm;
+                                flex-shrink: 0;
+                            }
+                            
+                            .post-info {
+                                .post-title {
+                                    font-size: 0.9rem;
+                                    margin-bottom: 2px;
+                                    
+                                    a {
+                                        color: $text-dark;
+                                        text-decoration: none;
+                                        transition: color 0.3s ease;
+                                        
+                                        &:hover {
+                                            color: $primary-color;
+                                        }
+                                    }
+                                }
+                                
+                                .post-date {
+                                    font-size: 0.8rem;
+                                    color: $text-light;
+                                }
+                            }
+                        }
+                    }
+                    
+                    .categories {
+                        .category-list {
+                            @include list-reset;
+                            
+                            .category-item {
+                                display: flex;
+                                justify-content: space-between;
+                                align-items: center;
+                                padding: $spacing-xs 0;
+                                border-bottom: 1px solid $light-gray;
+                                
+                                &:last-child {
+                                    border-bottom: none;
+                                }
+                                
+                                a {
+                                    @include link-style($text-dark, $primary-color);
+                                    flex: 1;
+                                }
+                                
+                                .count {
+                                    background: $light-gray;
+                                    padding: 2px 8px;
+                                    border-radius: 12px;
+                                    font-size: 0.8rem;
+                                    color: $text-light;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// 产品页面特定样式
+.products-page {
+    .products-header {
+        background: linear-gradient(135deg, $secondary-color 0%, $accent-color 100%);
+        color: $white;
+        padding: $spacing-xl * 2 0;
+        text-align: center;
+        
+        .page-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: $spacing-sm;
+        }
+        
+        .page-subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+    }
+    
+    .products-content {
+        padding: $spacing-xl * 2 0;
+        
+        .products-filters {
+            @include card-style($spacing-md, 8px);
+            margin-bottom: $spacing-lg;
+            
+            .filter-group {
+                display: flex;
+                align-items: center;
+                gap: $spacing-md;
+                margin-bottom: $spacing-sm;
+                
+                &:last-child {
+                    margin-bottom: 0;
+                }
+                
+                label {
+                    font-weight: 500;
+                    min-width: 80px;
+                }
+                
+                select, input {
+                    flex: 1;
+                    max-width: 200px;
+                }
+            }
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: $spacing-lg;
+            
+            .product-card {
+                @include card-style($spacing-md, 12px);
+                text-align: center;
+                position: relative;
+                overflow: hidden;
+                
+                .product-badge {
+                    position: absolute;
+                    top: $spacing-sm;
+                    right: $spacing-sm;
+                    background: $danger-color;
+                    color: $white;
+                    padding: 4px 8px;
+                    border-radius: 12px;
+                    font-size: 0.8rem;
+                    font-weight: 600;
+                }
+                
+                .product-image {
+                    width: 100%;
+                    height: 200px;
+                    background: linear-gradient(45deg, $light-gray, darken($light-gray, 5%));
+                    border-radius: 8px;
+                    margin-bottom: $spacing-md;
+                    @include flex-center;
+                    font-size: 4rem;
+                }
+                
+                .product-title {
+                    font-size: 1.3rem;
+                    color: $primary-color;
+                    margin-bottom: $spacing-xs;
+                }
+                
+                .product-description {
+                    color: $text-light;
+                    font-size: 0.9rem;
+                    margin-bottom: $spacing-md;
+                    @include truncate-multiline(3);
+                }
+                
+                .product-price {
+                    font-size: 1.5rem;
+                    font-weight: 700;
+                    color: $secondary-color;
+                    margin-bottom: $spacing-md;
+                }
+                
+                .product-actions {
+                    display: flex;
+                    gap: $spacing-sm;
+                    
+                    .btn-primary {
+                        @include button-style($primary-color, $white);
+                        flex: 1;
+                    }
+                    
+                    .btn-secondary {
+                        @include button-style($light-gray, $text-dark);
+                    }
+                }
+            }
+        }
+    }
+}
+
+// 联系页面特定样式
+.contact-page {
+    .contact-header {
+        background: linear-gradient(135deg, $accent-color 0%, $primary-color 100%);
+        color: $white;
+        padding: $spacing-xl * 2 0;
+        text-align: center;
+        
+        .page-title {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: $spacing-sm;
+        }
+    }
+    
+    .contact-content {
+        padding: $spacing-xl * 2 0;
+        
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: $spacing-xl;
+            
+            .contact-form {
+                @include card-style($spacing-lg, 12px);
+                
+                .form-title {
+                    color: $primary-color;
+                    margin-bottom: $spacing-md;
+                }
+                
+                .form-group {
+                    margin-bottom: $spacing-md;
+                    
+                    label {
+                        display: block;
+                        margin-bottom: $spacing-xs;
+                        font-weight: 500;
+                        color: $text-dark;
+                    }
+                    
+                    input, textarea {
+                        width: 100%;
+                        padding: $spacing-sm;
+                        border: 2px solid $light-gray;
+                        border-radius: 4px;
+                        font-family: $font-secondary;
+                        transition: border-color 0.3s ease;
+                        
+                        &:focus {
+                            border-color: $primary-color;
+                            outline: none;
+                        }
+                        
+                        &.error {
+                            border-color: $danger-color;
+                        }
+                    }
+                    
+                    textarea {
+                        min-height: 120px;
+                        resize: vertical;
+                    }
+                    
+                    .error-message {
+                        color: $danger-color;
+                        font-size: 0.8rem;
+                        margin-top: $spacing-xs;
+                    }
+                }
+                
+                .submit-btn {
+                    @include button-style($primary-color, $white);
+                    width: 100%;
+                    padding: $spacing-md;
+                    font-size: 1.1rem;
+                    font-weight: 600;
+                }
+            }
+            
+            .contact-info {
+                .info-section {
+                    @include card-style($spacing-md, 8px);
+                    margin-bottom: $spacing-lg;
+                    
+                    .section-title {
+                        color: $primary-color;
+                        font-size: 1.2rem;
+                        margin-bottom: $spacing-md;
+                    }
+                    
+                    .contact-item {
+                        display: flex;
+                        align-items: center;
+                        margin-bottom: $spacing-sm;
+                        
+                        &:last-child {
+                            margin-bottom: 0;
+                        }
+                        
+                        .contact-icon {
+                            width: 40px;
+                            height: 40px;
+                            background: $light-gray;
+                            border-radius: 50%;
+                            @include flex-center;
+                            margin-right: $spacing-sm;
+                            font-size: 1.2rem;
+                        }
+                        
+                        .contact-details {
+                            .contact-label {
+                                font-size: 0.9rem;
+                                color: $text-light;
+                                margin-bottom: 2px;
+                            }
+                            
+                            .contact-value {
+                                font-weight: 500;
+                                color: $text-dark;
+                            }
+                        }
+                    }
+                }
+                
+                .map-container {
+                    @include card-style(0, 8px);
+                    overflow: hidden;
+                    height: 250px;
+                    background: $light-gray;
+                    @include flex-center;
+                    font-size: 1.2rem;
+                    color: $text-light;
+                }
+            }
+        }
+    }
+}
+
+// 动画定义
+@include keyframes(float) {
+    0%, 100% {
+        transform: translate(0, 0) rotate(0deg);
+    }
+    50% {
+        transform: translate(-20px, -20px) rotate(180deg);
+    }
+}
+
+// 响应式调整
+@include respond-to($mobile) {
+    .blog-page {
+        .blog-content {
+            .blog-grid {
+                grid-template-columns: 1fr;
+                gap: $spacing-lg;
+            }
+        }
+    }
+    
+    .contact-page {
+        .contact-content {
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: $spacing-lg;
+            }
+        }
+    }
+}
+
+@include respond-to($tablet) {
+    .blog-page {
+        .blog-content {
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    }
+}

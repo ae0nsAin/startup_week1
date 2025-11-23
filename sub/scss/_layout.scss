@@ -1,0 +1,492 @@
+// ========================================
+// 布局样式文件 - 展示nesting和extend特性
+// ========================================
+
+// 容器布局
+.container {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 $spacing-sm;
+    
+    // 响应式容器宽度
+    @media (min-width: 480px) {
+        max-width: 480px;
+    }
+    
+    @media (min-width: $mobile) {
+        max-width: 768px;
+    }
+    
+    @media (min-width: $tablet) {
+        max-width: 1024px;
+        padding: 0 $spacing-md;
+    }
+    
+    @media (min-width: $desktop) {
+        max-width: 1200px;
+    }
+    
+    @media (min-width: 1400px) {
+        max-width: 1400px;
+    }
+}
+
+// Flexbox布局工具类
+.flex {
+    display: flex;
+    
+    &.flex-row { flex-direction: row; }
+    &.flex-column { flex-direction: column; }
+    &.flex-wrap { flex-wrap: wrap; }
+    &.flex-nowrap { flex-wrap: nowrap; }
+    
+    &.justify-start { justify-content: flex-start; }
+    &.justify-center { justify-content: center; }
+    &.justify-end { justify-content: flex-end; }
+    &.justify-between { justify-content: space-between; }
+    &.justify-around { justify-content: space-around; }
+    
+    &.items-start { align-items: flex-start; }
+    &.items-center { align-items: center; }
+    &.items-end { align-items: flex-end; }
+    &.items-stretch { align-items: stretch; }
+}
+
+// Grid布局工具类
+.grid {
+    display: grid;
+    
+    &.grid-1 { grid-template-columns: 1fr; }
+    &.grid-2 { grid-template-columns: repeat(2, 1fr); }
+    &.grid-3 { grid-template-columns: repeat(3, 1fr); }
+    &.grid-4 { grid-template-columns: repeat(4, 1fr); }
+    
+    &.gap-xs { gap: $spacing-xs; }
+    &.gap-sm { gap: $spacing-sm; }
+    &.gap-md { gap: $spacing-md; }
+    &.gap-lg { gap: $spacing-lg; }
+    &.gap-xl { gap: $spacing-xl; }
+}
+
+// 主要布局组件
+.main-layout {
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    min-height: 100vh;
+    
+    .main-content {
+        flex: 1;
+        padding-top: 80px; // 为固定头部留出空间
+    }
+}
+
+// 侧边栏布局
+.sidebar-layout {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: $spacing-lg;
+    padding: $spacing-lg 0;
+    
+    .sidebar {
+        background: $white;
+        border-radius: 8px;
+        padding: $spacing-md;
+        box-shadow: $shadow-light;
+        height: fit-content;
+        position: sticky;
+        top: 100px;
+    }
+    
+    .main-content {
+        min-width: 0; // 防止Grid溢出
+    }
+}
+
+// 卡片网格布局
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: $spacing-lg;
+    padding: $spacing-lg 0;
+}
+
+// Masonry布局样式（通过CSS Grid实现）
+.masonry-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: $spacing-md;
+    
+    .masonry-item {
+        break-inside: avoid;
+        margin-bottom: $spacing-md;
+    }
+}
+
+// Tab布局
+.tab-layout {
+    .tab-header {
+        display: flex;
+        border-bottom: 1px solid lighten($text-dark, 60%);
+        margin-bottom: $spacing-md;
+        
+        .tab-button {
+            padding: $spacing-sm $spacing-md;
+            background: none;
+            border: none;
+            border-bottom: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            
+            &.active {
+                color: $primary-color;
+                border-bottom-color: $primary-color;
+            }
+            
+            &:hover:not(.active) {
+                background: $light-gray;
+                color: $text-light;
+            }
+        }
+    }
+    
+    .tab-content {
+        .tab-panel {
+            display: none;
+            
+            &.active {
+                display: block;
+            }
+        }
+    }
+}
+
+// Accordion布局
+.accordion {
+    .accordion-item {
+        border: 1px solid lighten($text-dark, 60%);
+        border-radius: 4px;
+        margin-bottom: $spacing-xs;
+        overflow: hidden;
+        
+        .accordion-header {
+            button {
+                width: 100%;
+                padding: $spacing-sm $spacing-md;
+                background: $light-gray;
+                border: none;
+                text-align: left;
+                cursor: pointer;
+                transition: background 0.3s ease;
+                
+                &:hover {
+                    background: lighten($light-gray, 5%);
+                }
+                
+                &::after {
+                    content: '+';
+                    float: right;
+                    font-weight: bold;
+                    transition: transform 0.3s ease;
+                }
+                
+                &[aria-expanded="true"]::after {
+                    transform: rotate(45deg);
+                }
+            }
+        }
+        
+        .accordion-content {
+            padding: $spacing-sm $spacing-md;
+            display: none;
+            background: $white;
+            
+            &.active {
+                display: block;
+            }
+        }
+    }
+}
+
+// Modal布局
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    
+    &.active {
+        opacity: 1;
+        visibility: visible;
+    }
+    
+    .modal {
+        background: $white;
+        border-radius: 8px;
+        padding: $spacing-lg;
+        max-width: 500px;
+        width: 90%;
+        max-height: 90vh;
+        overflow-y: auto;
+        transform: scale(0.9);
+        transition: transform 0.3s ease;
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: $spacing-md;
+            padding-bottom: $spacing-sm;
+            border-bottom: 1px solid $light-gray;
+            
+            .modal-title {
+                font-family: $font-primary;
+                color: $primary-color;
+                margin: 0;
+            }
+            
+            .modal-close {
+                background: none;
+                border: none;
+                font-size: 1.5rem;
+                cursor: pointer;
+                color: $text-light;
+                
+                &:hover {
+                    color: $primary-color;
+                }
+            }
+        }
+        
+        .modal-body {
+            margin-bottom: $spacing-md;
+        }
+        
+        .modal-footer {
+            text-align: right;
+        }
+    }
+    
+    &.active .modal {
+        transform: scale(1);
+    }
+}
+
+// Dropdown布局
+.dropdown {
+    position: relative;
+    display: inline-block;
+    
+    .dropdown-toggle {
+        @extend %button-base;
+        @include button-style($light-gray, $text-dark);
+        
+        &::after {
+            content: '▼';
+            margin-left: $spacing-xs;
+            transition: transform 0.3s ease;
+        }
+        
+        &[aria-expanded="true"]::after {
+            transform: rotate(180deg);
+        }
+    }
+    
+    .dropdown-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: $white;
+        border: 1px solid $light-gray;
+        border-radius: 4px;
+        box-shadow: $shadow-medium;
+        min-width: 150px;
+        z-index: 100;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-10px);
+        transition: all 0.3s ease;
+        
+        .dropdown-item {
+            display: block;
+            padding: $spacing-sm $spacing-md;
+            color: $text-dark;
+            text-decoration: none;
+            border-bottom: 1px solid $light-gray;
+            
+            &:last-child {
+                border-bottom: none;
+            }
+            
+            &:hover {
+                background: $light-gray;
+            }
+        }
+        
+        &.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+    }
+}
+
+// Loading布局
+.loading-container {
+    @include center-position;
+    flex-direction: column;
+    text-align: center;
+    
+    .loading-spinner {
+        @include loading-animation;
+        width: 40px;
+        height: 40px;
+        border: 4px solid $light-gray;
+        border-top: 4px solid $primary-color;
+        border-radius: 50%;
+        margin-bottom: $spacing-sm;
+    }
+    
+    .loading-text {
+        color: $text-light;
+        font-size: 0.9rem;
+    }
+}
+
+// Toast通知布局
+.toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1100;
+    max-width: 350px;
+    
+    .toast {
+        background: $white;
+        border-left: 4px solid $primary-color;
+        border-radius: 4px;
+        padding: $spacing-sm $spacing-md;
+        margin-bottom: $spacing-xs;
+        box-shadow: $shadow-medium;
+        display: flex;
+        align-items: center;
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+        
+        &.show {
+            transform: translateX(0);
+        }
+        
+        &.success { border-left-color: $success-color; }
+        &.warning { border-left-color: $warning-color; }
+        &.error { border-left-color: $danger-color; }
+        
+        .toast-icon {
+            margin-right: $spacing-sm;
+            font-size: 1.2rem;
+        }
+        
+        .toast-content {
+            flex: 1;
+            
+            .toast-title {
+                font-weight: 600;
+                margin-bottom: 2px;
+            }
+            
+            .toast-message {
+                font-size: 0.9rem;
+                color: $text-light;
+            }
+        }
+        
+        .toast-close {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: $text-light;
+            font-size: 1.2rem;
+            margin-left: $spacing-sm;
+            
+            &:hover {
+                color: $text-dark;
+            }
+        }
+    }
+}
+
+// 面包屑导航布局
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    padding: $spacing-sm 0;
+    font-size: 0.9rem;
+    
+    .breadcrumb-item {
+        color: $text-light;
+        
+        &:not(:last-child)::after {
+            content: '>';
+            margin: 0 $spacing-xs;
+            color: $text-light;
+        }
+        
+        &:last-child {
+            color: $primary-color;
+            font-weight: 600;
+        }
+        
+        a {
+            color: inherit;
+            text-decoration: none;
+            
+            &:hover {
+                color: $primary-color;
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+// 进度条布局
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: $light-gray;
+    border-radius: 4px;
+    overflow: hidden;
+    
+    .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, $primary-color, $secondary-color);
+        transition: width 0.3s ease;
+        border-radius: 4px;
+    }
+}
+
+// 分割线
+.divider {
+    height: 1px;
+    background: $light-gray;
+    margin: $spacing-md 0;
+    
+    &.vertical {
+        width: 1px;
+        height: auto;
+        margin: 0 $spacing-sm;
+    }
+    
+    &.thick {
+        height: 3px;
+    }
+}

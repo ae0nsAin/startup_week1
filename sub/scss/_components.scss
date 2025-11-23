@@ -1,0 +1,409 @@
+// ========================================
+// 组件样式文件 - 展示mixins和nesting特性
+// ========================================
+
+// 关于部分组件
+.about-section {
+    .about-grid {
+        @include grid-layout(3, $spacing-lg);
+        margin-top: $spacing-xl;
+        
+        .about-card {
+            @include card-style($spacing-md, 12px);
+            text-align: center;
+            
+            .card-icon {
+                font-size: 3rem;
+                margin-bottom: $spacing-sm;
+                display: block;
+            }
+            
+            h3 {
+                color: $primary-color;
+                margin-bottom: $spacing-sm;
+                font-weight: 600;
+            }
+            
+            p {
+                color: $text-light;
+                line-height: 1.6;
+            }
+            
+            // 展示hover动画
+            &:hover {
+                .card-icon {
+                    animation: bounce 0.6s ease;
+                }
+            }
+        }
+    }
+}
+
+// 冲泡指南组件
+.brewing-section {
+    .brewing-methods {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: $spacing-lg;
+        
+        .brewing-method {
+            @include card-style($spacing-lg, 12px);
+            
+            h3 {
+                color: $primary-color;
+                border-bottom: 2px solid $accent-color;
+                padding-bottom: $spacing-xs;
+                margin-bottom: $spacing-md;
+            }
+            
+            .method-details {
+                @include flex-center(row);
+                justify-content: space-between;
+                margin-bottom: $spacing-md;
+                
+                .difficulty {
+                    font-weight: 500;
+                    
+                    .difficulty-level {
+                        padding: 2px 8px;
+                        border-radius: 12px;
+                        font-size: 0.8rem;
+                        font-weight: 600;
+                        
+                        &.difficulty-easy {
+                            background: lighten($success-color, 35%);
+                            color: darken($success-color, 20%);
+                        }
+                        
+                        &.difficulty-medium {
+                            background: lighten($warning-color, 35%);
+                            color: darken($warning-color, 20%);
+                        }
+                        
+                        &.difficulty-hard {
+                            background: lighten($danger-color, 35%);
+                            color: darken($danger-color, 20%);
+                        }
+                    }
+                }
+                
+                .time {
+                    background: $light-gray;
+                    padding: 4px 12px;
+                    border-radius: 12px;
+                    font-size: 0.9rem;
+                    color: $text-light;
+                }
+            }
+            
+            .steps {
+                @include list-reset;
+                
+                li {
+                    position: relative;
+                    padding-left: $spacing-md;
+                    margin-bottom: $spacing-sm;
+                    color: $text-light;
+                    
+                    &::before {
+                        content: "☕";
+                        position: absolute;
+                        left: 0;
+                        top: 0;
+                        font-size: 0.8rem;
+                        color: $primary-color;
+                    }
+                    
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// 咖啡豆组件
+.beans-section {
+    .beans-showcase {
+        @include grid-layout(3, $spacing-lg);
+        
+        .bean-card {
+            @include card-style($spacing-lg, 12px);
+            border-left: 4px solid transparent;
+            position: relative;
+            overflow: hidden;
+            
+            &::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 4px;
+                background: linear-gradient(90deg, $primary-color, $secondary-color);
+                transform: scaleX(0);
+                transition: transform 0.3s ease;
+            }
+            
+            &:hover {
+                &::before {
+                    transform: scaleX(1);
+                }
+            }
+            
+            // 不同豆类的特殊样式
+            &.arabica {
+                border-left-color: $primary-color;
+                
+                .bean-header {
+                    h3 {
+                        color: $primary-color;
+                    }
+                }
+                
+                .taste-profile {
+                    .flavor:nth-child(1) { background: lighten($primary-color, 40%); color: $primary-color; }
+                    .flavor:nth-child(2) { background: lighten($success-color, 35%); color: $success-color; }
+                    .flavor:nth-child(3) { background: lighten($warning-color, 35%); color: $warning-color; }
+                }
+            }
+            
+            &.robusta {
+                border-left-color: darken($primary-color, 10%);
+                
+                .bean-header {
+                    h3 {
+                        color: darken($primary-color, 10%);
+                    }
+                }
+                
+                .taste-profile {
+                    .flavor:nth-child(1) { background: lighten($danger-color, 35%); color: $danger-color; }
+                    .flavor:nth-child(2) { background: lighten($danger-color, 25%); color: darken($danger-color, 10%); }
+                    .flavor:nth-child(3) { background: lighten($danger-color, 15%); color: darken($danger-color, 20%); }
+                }
+            }
+            
+            &.liberica {
+                border-left-color: $secondary-color;
+                
+                .bean-header {
+                    h3 {
+                        color: $secondary-color;
+                    }
+                }
+                
+                .taste-profile {
+                    .flavor:nth-child(1) { background: lighten($secondary-color, 35%); color: $secondary-color; }
+                    .flavor:nth-child(2) { background: lighten($text-dark, 35%); color: $text-dark; }
+                    .flavor:nth-child(3) { background: lighten($text-dark, 25%); color: $text-dark; }
+                }
+            }
+            
+            .bean-header {
+                margin-bottom: $spacing-md;
+                
+                h3 {
+                    margin-bottom: $spacing-xs;
+                    font-size: 1.3rem;
+                }
+                
+                .origin {
+                    background: $light-gray;
+                    padding: 4px 8px;
+                    border-radius: 12px;
+                    font-size: 0.8rem;
+                    color: $text-light;
+                }
+            }
+            
+            .bean-description {
+                color: $text-light;
+                line-height: 1.7;
+                margin-bottom: $spacing-md;
+            }
+            
+            .taste-profile {
+                display: flex;
+                flex-wrap: wrap;
+                gap: $spacing-xs;
+                
+                .flavor {
+                    padding: 4px 12px;
+                    border-radius: 16px;
+                    font-size: 0.8rem;
+                    font-weight: 500;
+                    transition: transform 0.2s ease;
+                    
+                    &:hover {
+                        transform: scale(1.05);
+                    }
+                }
+            }
+        }
+    }
+}
+
+// 文化时间线组件
+.culture-section {
+    .culture-timeline {
+        position: relative;
+        max-width: 800px;
+        margin: 0 auto;
+        
+        &::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, $primary-color, $accent-color);
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: $spacing-xl;
+            width: 50%;
+            
+            &:nth-child(odd) {
+                left: 0;
+                text-align: right;
+                padding-right: $spacing-lg;
+                
+                .timeline-content {
+                    &::before {
+                        right: -8px;
+                        left: auto;
+                    }
+                }
+            }
+            
+            &:nth-child(even) {
+                left: 50%;
+                text-align: left;
+                padding-left: $spacing-lg;
+                
+                .timeline-content {
+                    &::before {
+                        left: -8px;
+                        right: auto;
+                    }
+                }
+            }
+            
+            .timeline-date {
+                font-family: $font-primary;
+                font-size: 1.1rem;
+                font-weight: 600;
+                color: $primary-color;
+                background: $white;
+                padding: 8px 16px;
+                border-radius: 20px;
+                display: inline-block;
+                margin-bottom: $spacing-sm;
+                box-shadow: $shadow-light;
+                position: relative;
+                z-index: 2;
+            }
+            
+            .timeline-content {
+                @include card-style($spacing-md, 8px);
+                position: relative;
+                
+                &::before {
+                    content: '';
+                    position: absolute;
+                    top: 20px;
+                    width: 0;
+                    height: 0;
+                    border: 8px solid transparent;
+                    border-top-color: $white;
+                }
+                
+                h3 {
+                    color: $primary-color;
+                    margin-bottom: $spacing-xs;
+                }
+                
+                p {
+                    color: $text-light;
+                    margin-bottom: 0;
+                }
+            }
+            
+            &:hover {
+                .timeline-date {
+                    transform: scale(1.1);
+                    box-shadow: $shadow-medium;
+                }
+            }
+        }
+    }
+}
+
+// 导航链接激活状态
+.nav-link {
+    &.active {
+        background: lighten($primary-color, 35%);
+        color: $primary-color;
+        font-weight: 600;
+    }
+}
+
+// 动画效果
+@include keyframes(bounce) {
+    0%, 20%, 53%, 80%, 100% {
+        animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+        transform: translate3d(0,0,0);
+    }
+    40%, 43% {
+        animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+        transform: translate3d(0, -10px, 0);
+    }
+    70% {
+        animation-timing-function: cubic-bezier(0.755, 0.050, 0.855, 0.060);
+        transform: translate3d(0, -5px, 0);
+    }
+    90% {
+        transform: translate3d(0,-2px,0);
+    }
+}
+
+// 滚动条样式
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: $light-gray;
+}
+
+::-webkit-scrollbar-thumb {
+    background: $primary-color;
+    border-radius: 4px;
+    
+    &:hover {
+        background: darken($primary-color, 10%);
+    }
+}
+
+// 选择文本样式
+::selection {
+    background: lighten($primary-color, 35%);
+    color: $primary-color;
+}
+
+::-moz-selection {
+    background: lighten($primary-color, 35%);
+    color: $primary-color;
+}
+
+// Focus样式
+:focus-visible {
+    outline: 2px solid $primary-color;
+    outline-offset: 2px;
+}

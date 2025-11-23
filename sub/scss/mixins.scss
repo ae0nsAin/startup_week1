@@ -1,0 +1,214 @@
+// ========================================
+// Mixins文件 - 展示Sass的mixins特性
+// ========================================
+
+// 响应式设计mixin
+@mixin respond-to($breakpoint) {
+    @if $breakpoint == $mobile {
+        @media (max-width: #{$mobile - 1px}) {
+            @content;
+        }
+    }
+    @else if $breakpoint == $tablet {
+        @media (min-width: #{$mobile}) and (max-width: #{$tablet - 1px}) {
+            @content;
+        }
+    }
+    @else if $breakpoint == $desktop {
+        @media (min-width: #{$tablet}) {
+            @content;
+        }
+    }
+}
+
+// 按钮样式mixin
+@mixin button-style($bg-color, $text-color) {
+    background-color: $bg-color;
+    color: $text-color;
+    
+    &:hover {
+        background-color: darken($bg-color, 10%);
+        color: $text-color;
+    }
+    
+    &:active {
+        background-color: darken($bg-color, 15%);
+        transform: translateY(1px);
+    }
+    
+    &:focus {
+        outline: 2px solid $bg-color;
+        outline-offset: 2px;
+    }
+}
+
+// 卡片样式mixin
+@mixin card-style($padding: $spacing-md, $border-radius: 8px) {
+    background: $white;
+    border-radius: $border-radius;
+    padding: $padding;
+    box-shadow: $shadow-light;
+    transition: all 0.3s ease;
+    
+    &:hover {
+        transform: translateY(-4px);
+        box-shadow: $shadow-medium;
+    }
+}
+
+// 渐变背景mixin
+@mixin gradient-background($start-color, $end-color, $angle: 135deg) {
+    background: linear-gradient($angle, $start-color 0%, $end-color 100%);
+}
+
+// 文本截断mixin
+@mixin truncate-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+// 多行文本截断mixin
+@mixin truncate-multiline($lines: 3) {
+    display: -webkit-box;
+    -webkit-line-clamp: $lines;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+// 居中定位mixin
+@mixin center-position {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+// Flex居中mixin
+@mixin flex-center($direction: row) {
+    display: flex;
+    flex-direction: $direction;
+    justify-content: center;
+    align-items: center;
+}
+
+// 圆角mixin
+@mixin border-radius($radius: 4px) {
+    border-radius: $radius;
+}
+
+// 阴影mixin
+@mixin box-shadow($shadow: $shadow-light) {
+    box-shadow: $shadow;
+}
+
+// 过渡动画mixin
+@mixin transition($property: all, $duration: 0.3s, $timing: ease) {
+    transition: $property $duration $timing;
+}
+
+// 动画关键帧mixin
+@mixin keyframes($name) {
+    @-webkit-keyframes #{$name} {
+        @content;
+    }
+    
+    @keyframes #{$name} {
+        @content;
+    }
+}
+
+// 缩放hover效果mixin
+@mixin hover-scale($scale: 1.05) {
+    transition: transform 0.3s ease;
+    
+    &:hover {
+        transform: scale($scale);
+    }
+}
+
+// 玻璃形态效果mixin
+@mixin glass-effect($bg-color: rgba(255, 255, 255, 0.1), $backdrop: blur(10px)) {
+    background: $bg-color;
+    backdrop-filter: $backdrop;
+    -webkit-backdrop-filter: $backdrop;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+// 文字阴影mixin
+@mixin text-shadow($shadow: 2px 2px 4px rgba(0,0,0,0.3)) {
+    text-shadow: $shadow;
+}
+
+// 网格布局mixin
+@mixin grid-layout($columns: 3, $gap: $spacing-md) {
+    display: grid;
+    grid-template-columns: repeat($columns, 1fr);
+    gap: $gap;
+    
+    @include respond-to($mobile) {
+        grid-template-columns: 1fr;
+    }
+}
+
+// 列表重置mixin
+@mixin list-reset {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+// 链接样式mixin
+@mixin link-style($color: $primary-color, $hover-color: $secondary-color) {
+    color: $color;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    
+    &:hover {
+        color: $hover-color;
+        text-decoration: underline;
+    }
+    
+    &:focus {
+        outline: 2px solid $color;
+        outline-offset: 2px;
+    }
+}
+
+// 媒体查询mixin（用于高分辨率屏幕）
+@mixin retina-display {
+    @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+        @content;
+    }
+}
+
+// 加载动画mixin
+@mixin loading-animation {
+    @keyframes loading {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+    
+    animation: loading 1s linear infinite;
+}
+
+// 淡入动画mixin
+@mixin fade-in($duration: 0.6s, $delay: 0s) {
+    opacity: 0;
+    animation: fadeIn $duration ease-in-out $delay forwards;
+    
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+}

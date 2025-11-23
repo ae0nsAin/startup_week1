@@ -1,0 +1,344 @@
+// ========================================
+// 基础样式文件 - 展示variables和nesting特性
+// ========================================
+
+// 扩展占位符定义
+%reset-box-sizing {
+    box-sizing: border-box;
+}
+
+// 使用变量和函数
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+    
+    @include respond-to($tablet) {
+        font-size: 15px;
+    }
+    
+    @include respond-to($mobile) {
+        font-size: 14px;
+    }
+}
+
+// 重置样式
+* {
+    @extend %reset-box-sizing;
+    margin: 0;
+    padding: 0;
+}
+
+// 基础文字样式
+h1, h2, h3, h4, h5, h6 {
+    font-family: $font-primary;
+    line-height: 1.2;
+    margin-bottom: $spacing-sm;
+    color: $text-dark;
+}
+
+h1 { font-size: clamp(1.8rem, 4vw, 2.5rem); }
+h2 { font-size: clamp(1.5rem, 3vw, 2rem); }
+h3 { font-size: clamp(1.2rem, 2.5vw, 1.5rem); }
+h4 { font-size: clamp(1rem, 2vw, 1.2rem); }
+h5 { font-size: clamp(0.9rem, 1.8vw, 1.1rem); }
+h6 { font-size: clamp(0.8rem, 1.5vw, 1rem); }
+
+p {
+    margin-bottom: $spacing-sm;
+    line-height: 1.7;
+    
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+// 链接样式
+a {
+    @include link-style();
+}
+
+// 列表样式
+ul, ol {
+    margin-bottom: $spacing-sm;
+    
+    li {
+        margin-bottom: $spacing-xs;
+    }
+}
+
+// 代码样式
+code {
+    font-family: 'Courier New', monospace;
+    background: lighten($light-gray, 5%);
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-size: 0.9em;
+}
+
+pre {
+    background: $dark-gray;
+    color: $white;
+    padding: $spacing-sm;
+    border-radius: 4px;
+    overflow-x: auto;
+    margin-bottom: $spacing-sm;
+    
+    code {
+        background: none;
+        padding: 0;
+        color: inherit;
+    }
+}
+
+// 表格样式
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: $spacing-sm;
+    
+    th, td {
+        padding: $spacing-xs;
+        text-align: left;
+        border-bottom: 1px solid lighten($text-dark, 60%);
+    }
+    
+    th {
+        font-weight: 600;
+        background: $light-gray;
+        color: $text-dark;
+    }
+    
+    tr:hover {
+        background: lighten($light-gray, 3%);
+    }
+}
+
+// 图片样式
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+// 表单元素样式
+input, textarea, select {
+    width: 100%;
+    padding: $spacing-xs;
+    border: 1px solid lighten($text-dark, 50%);
+    border-radius: 4px;
+    font-family: $font-secondary;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+    
+    &:focus {
+        outline: none;
+        border-color: $primary-color;
+        box-shadow: 0 0 0 2px rgba($primary-color, 0.2);
+    }
+    
+    &:invalid {
+        border-color: $danger-color;
+    }
+    
+    &:valid {
+        border-color: $success-color;
+    }
+}
+
+button {
+    font-family: $font-secondary;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    
+    &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+}
+
+// 辅助类
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+.mb-0 { margin-bottom: 0; }
+.mb-sm { margin-bottom: $spacing-sm; }
+.mb-md { margin-bottom: $spacing-md; }
+.mb-lg { margin-bottom: $spacing-lg; }
+.mb-xl { margin-bottom: $spacing-xl; }
+
+.mt-0 { margin-top: 0; }
+.mt-sm { margin-top: $spacing-sm; }
+.mt-md { margin-top: $spacing-md; }
+.mt-lg { margin-top: $spacing-lg; }
+.mt-xl { margin-top: $spacing-xl; }
+
+// 颜色类（展示更多的variables使用）
+.text-primary { color: $primary-color; }
+.text-secondary { color: $secondary-color; }
+.text-accent { color: $accent-color; }
+.text-success { color: $success-color; }
+.text-warning { color: $warning-color; }
+.text-danger { color: $danger-color; }
+
+.bg-primary { background-color: $primary-color; }
+.bg-secondary { background-color: $secondary-color; }
+.bg-light { background-color: $light-gray; }
+
+// 间距工具类
+.p-xs { padding: $spacing-xs; }
+.p-sm { padding: $spacing-sm; }
+.p-md { padding: $spacing-md; }
+.p-lg { padding: $spacing-lg; }
+
+.m-xs { margin: $spacing-xs; }
+.m-sm { margin: $spacing-sm; }
+.m-md { margin: $spacing-md; }
+.m-lg { margin: $spacing-lg; }
+
+// 圆角工具类
+.rounded { @include border-radius(4px); }
+.rounded-lg { @include border-radius(8px); }
+.rounded-full { @include border-radius(50%); }
+
+// 阴影工具类
+.shadow { @include box-shadow($shadow-light); }
+.shadow-md { @include box-shadow($shadow-medium); }
+.shadow-lg { @include box-shadow($shadow-heavy); }
+
+// 动画类
+.fade-in {
+    @include fade-in();
+}
+
+.loading {
+    @include loading-animation();
+}
+
+// 响应式工具类
+@include respond-to($mobile) {
+    .hide-mobile { display: none; }
+}
+
+@include respond-to($tablet) {
+    .hide-tablet { display: none; }
+}
+
+@include respond-to($desktop) {
+    .show-mobile-only { display: none; }
+    .show-tablet-only { display: block; }
+}
+
+@media (min-width: $tablet) {
+    .show-desktop-only { display: none; }
+}
+
+// 打印样式
+@media print {
+    * {
+        background: transparent !important;
+        color: black !important;
+        box-shadow: none !important;
+        text-shadow: none !important;
+    }
+    
+    body {
+        font-size: 12pt;
+        line-height: 1.4;
+    }
+    
+    h1, h2, h3 {
+        page-break-after: avoid;
+    }
+    
+    .main-header,
+    .mobile-menu-toggle,
+    .main-footer {
+        display: none;
+    }
+    
+    .hero {
+        min-height: auto;
+        padding: $spacing-lg 0;
+    }
+    
+    a {
+        text-decoration: underline;
+    }
+    
+    .no-print {
+        display: none;
+    }
+}
+
+// 高对比度模式支持
+@media (prefers-contrast: high) {
+    $primary-color: darken($primary-color, 20%);
+    $text-dark: black;
+    $text-light: #666;
+    
+    body {
+        color: $text-dark;
+    }
+    
+    .hero {
+        background: $text-dark;
+    }
+}
+
+// 减少动画偏好
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+// 暗黑模式支持
+@media (prefers-color-scheme: dark) {
+    $text-dark: lighten($white, 90%);
+    $text-light: lighten($white, 70%);
+    $light-gray: darken($white, 10%);
+    
+    body {
+        background: #1a1a1a;
+        color: $text-dark;
+    }
+    
+    .main-header {
+        background: rgba(#1a1a1a, 0.95);
+        
+        .nav-link {
+            color: $text-dark;
+        }
+    }
+    
+    .about-card,
+    .brewing-method,
+    .bean-card {
+        background: #2a2a2a;
+        color: $text-dark;
+    }
+    
+    .main-footer {
+        background: #1a1a1a;
+    }
+}

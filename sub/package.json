@@ -1,0 +1,24 @@
+{
+  "name": "coffee-blog-sass",
+  "version": "1.0.0",
+  "description": "Coffee Culture Blog with Sass and automated workflow",
+  "scripts": {
+    "dev": "npm run watch:css",
+    "build": "npm run build:css && npm run minify:css",
+    "watch:css": "sass --watch scss/main.scss:css/style.css --style expanded",
+    "build:css": "sass scss/main.scss:css/style.css --style compressed",
+    "minify:css": "cleancss -o css/style.min.css css/style.css",
+    "serve": "npx live-server --port=3000",
+    "start": "concurrently \"npm run watch:css\" \"npm run serve\"",
+    "clean": "rm -rf css/*.css && rm -rf css/*.map"
+  },
+  "devDependencies": {
+    "sass": "^1.69.5",
+    "clean-css-cli": "^5.6.2",
+    "live-server": "^1.2.2",
+    "concurrently": "^8.2.2"
+  },
+  "keywords": ["sass", "css", "coffee", "blog", "workflow"],
+  "author": "Student",
+  "license": "MIT"
+}
